@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       client: Redis.fromEnv(),
     });
     const chatModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash-lite",
       streaming: true,
       callbacks: [handlers],
       verbose: false, // Remove console logs in production
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     });
 
     const rephraseModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.5-flash",
+      model: "gemini-2.0-flash-lite",
       verbose: false, // Remove console logs in production
       cache,
       temperature: 0.3, // Slight creativity for rephrasing while staying focused
