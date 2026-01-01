@@ -27,20 +27,24 @@ export async function POST(req: Request) {
     const cache = new UpstashRedisCache({
       client: Redis.fromEnv(),
     });
-
     const chatModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
       streaming: true,
       callbacks: [handlers],
-      verbose: true, // logs to console
+      verbose: false, // Remove console logs in production
       cache,
       temperature: 0,
+      maxOutputTokens: 2048, // Set reasonable limit to prevent excessive responses
+      topP: 0.95, // Add for more consistent outputs with temp=0
     });
 
     const rephraseModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
-      verbose: true,
+      verbose: false, // Remove console logs in production
       cache,
+      temperature: 0.3, // Slight creativity for rephrasing while staying focused
+      maxOutputTokens: 512, // Rephrasing typically needs fewer tokens
+      topP: 0.9,
     });
 
     const retriever = (await getVectorStore()).asRetriever();
