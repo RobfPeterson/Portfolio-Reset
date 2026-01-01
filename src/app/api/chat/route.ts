@@ -28,20 +28,22 @@ export async function POST(req: Request) {
       client: Redis.fromEnv(),
     });
     const chatModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.0-flash-lite",
+      model: "gemini-2.5-flash",
       streaming: true,
       callbacks: [handlers],
       verbose: false, // Remove console logs in production
       cache,
+      thinking_budget: 0,
       temperature: 0,
       maxOutputTokens: 2048, // Set reasonable limit to prevent excessive responses
       topP: 0.95, // Add for more consistent outputs with temp=0
     });
 
     const rephraseModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.0-flash-lite",
+      model: "gemini-2.5-flash",
       verbose: false, // Remove console logs in production
       cache,
+      thinking_budget: 0,
       temperature: 0.3, // Slight creativity for rephrasing while staying focused
       maxOutputTokens: 512, // Rephrasing typically needs fewer tokens
       topP: 0.9,
