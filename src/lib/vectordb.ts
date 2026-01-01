@@ -1,6 +1,6 @@
 import { DataAPIClient } from "@datastax/astra-db-ts";
 import { AstraDBVectorStore } from "@langchain/community/vectorstores/astradb";
-import { OpenAIEmbeddings } from "@langchain/openai";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 
 const endpoint = process.env.ASTRA_DB_API_ENDPOINT || "";
 const token = process.env.ASTRA_DB_APPLICATION_TOKEN || "";
@@ -12,7 +12,7 @@ if (!endpoint || !token || !collection) {
 
 export async function getVectorStore() {
   return AstraDBVectorStore.fromExistingIndex(
-    new OpenAIEmbeddings({ model: "text-embedding-3-small" }),
+    new GoogleGenerativeAIEmbeddings({ model: "gemini-embedding-001" }),
     {
       token,
       endpoint,
