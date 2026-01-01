@@ -6,7 +6,7 @@ import {
   MessagesPlaceholder,
   PromptTemplate,
 } from "@langchain/core/prompts";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { Redis } from "@upstash/redis";
 import { LangChainStream, Message, StreamingTextResponse } from "ai";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
@@ -27,9 +27,8 @@ export async function POST(req: Request) {
       client: Redis.fromEnv(),
     });
 
-    const chatModel = new ChatOpenAI({
+    const chatModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
-      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
       streaming: true,
       callbacks: [handlers],
       verbose: true, // logs to console
@@ -37,9 +36,8 @@ export async function POST(req: Request) {
       temperature: 0,
     });
 
-    const rephraseModel = new ChatOpenAI({
+    const rephraseModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
-      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
       verbose: true,
       cache,
     });
