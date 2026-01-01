@@ -6,7 +6,7 @@ import {
   MessagesPlaceholder,
   PromptTemplate,
 } from "@langchain/core/prompts";
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Redis } from "@upstash/redis";
 import { LangChainStream, Message, StreamingTextResponse } from "ai";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
