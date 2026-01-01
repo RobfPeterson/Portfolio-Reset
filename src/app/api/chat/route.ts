@@ -27,7 +27,7 @@ export async function POST(req: Request) {
       client: Redis.fromEnv(),
     });
 
-    const chatModel = new GoogleGenAI({
+    const chatModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
       streaming: true,
       callbacks: [handlers],
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       temperature: 0,
     });
 
-    const rephraseModel = new GoogleGenAI({
+    const rephraseModel = new ChatGoogleGenerativeAI({
       model: "gemini-2.5-flash",
       verbose: true,
       cache,
