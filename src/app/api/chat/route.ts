@@ -29,6 +29,7 @@ export async function POST(req: Request) {
 
     const chatModel = new ChatOpenAI({
       model: "gemini-2.5-flash",
+      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
       streaming: true,
       callbacks: [handlers],
       verbose: true, // logs to console
@@ -38,6 +39,7 @@ export async function POST(req: Request) {
 
     const rephraseModel = new ChatOpenAI({
       model: "gemini-2.5-flash",
+      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
       verbose: true,
       cache,
     });
