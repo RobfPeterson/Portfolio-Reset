@@ -65,7 +65,7 @@ export default function page() {
         <p>
           If you have any questions, concerns, or just want to say hi, drop me
           an email at{" "}
-          <Link href="mailto:hello@tedawf.com">hello@tedawf.com</Link> or use
+          <Link href="mailto:rfpsite79@gmail.com">rfpsite79@gmail.com</Link> or use
           the <Link href="/contact">contact form</Link>. I&apos;d love to hear
           from you!
         </p>
