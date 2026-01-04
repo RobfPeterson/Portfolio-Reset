@@ -16,7 +16,7 @@ import Link from "next/link";
 import path from "path";
 
 const blogDirectory = path.join(process.cwd(), "content");
-const TED_BIRTH_YEAR = 1997;
+const Rob_BIRTH_YEAR = 2007;
 const LIMIT = 2; // max show 2
 
 export default async function Home() {
@@ -29,39 +29,25 @@ export default async function Home() {
 
         <div className="flex max-w-[320px] flex-col sm:max-w-full">
           <h1 className="title text-balance text-4xl sm:text-5xl">
-            hi ted here. 👋
+            Hi I'm Robert. 
           </h1>
 
           <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
-            {new Date().getFullYear() - TED_BIRTH_YEAR}
-            yo software engineer from Singapore 🇸🇬
+            {new Date().getFullYear() - Rob_BIRTH_YEAR}
+            yo Student @ University of Chicago
           </p>
 
           <p className="mt-4 max-w-sm text-balance text-sm sm:text-base">
-            Backend by trade, full-stack by passion. I build and self-host the
-            lot.
+            Focused on economics, data science, and making better predictions. This is my portfolio for fascinating models and opinions on books.
           </p>
 
           <div className="mt-6 flex items-center gap-1">
             <p className="text-balance text-sm font-semibold sm:text-base">
-              For Q&A, raise a ticket with Ted Support
+              For Q&A, raise a ticket with Rob Bot
             </p>
             <ArrowDownRight className="hidden size-5 animate-bounce sm:block" />
             <ArrowDown className="block size-5 animate-bounce sm:hidden" />
           </div>
-
-          <p className="mt-1 text-xs font-light">
-            For escalations, please find my
-            <Link
-              href="https://www.instagram.com/gomugomu.cat"
-              target="_blank"
-              className="link font-semibold"
-              title="meow"
-            >
-              &nbsp;Ted Lead&nbsp;
-            </Link>
-            instead.
-          </p>
 
           <section className="mt-6 flex flex-wrap items-center gap-4">
             <Link href="/resume.pdf" target="_blank">

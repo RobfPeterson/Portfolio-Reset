@@ -1,37 +1,15 @@
 {
   "education": [
     {
-      "name": "Digipen Institute of Technology Singapore",
-      "href": "https://www.digipen.edu.sg",
-      "title": "BS in Computer Science in Real-Time Interactive Simulation",
-      "logo": "/digipen.png",
-      "start": "Sep 2019",
-      "end": "Apr 2023",
+      "name": "University of Chicago",
+      "href": "https://www.uchicago.edu",
+      "title": "BA in Economics and BS in Computational and Applied Mathematics",
+      "logo": "/UChicagoSeal.png",
+      "start": "Sep 2025",
+      "end": "May 2029",
       "description": [
-        "Graduated with a Minor in Mathematics",
-        "President of Digipen Student Management Committee for freshman year",
-        "3-time recipient of the Dean's Honor List"
-      ],
-      "links": [
-        {
-          "name": "Final Year Project",
-          "href": "https://games.digipen.edu/games/rapid-ride-fight",
-          "icon": "globe"
-        },
-        {
-          "name": "2nd Year Project",
-          "href": "https://games.digipen.edu/games/glowing-under",
-          "icon": "globe"
-        }
+        "Aiming for a minor in history. Expected graduation in 2029."
       ]
-    },
-    {
-      "name": "Singapore Polytechnic",
-      "href": "https://www.sp.edu.sg",
-      "title": "Diploma in Games Design and Development",
-      "logo": "/sp.png",
-      "start": "Apr 2014",
-      "end": "May 2017"
     }
   ]
 }
