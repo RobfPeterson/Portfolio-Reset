@@ -29,7 +29,7 @@ export default async function Home() {
 
         <div className="flex max-w-[320px] flex-col sm:max-w-full">
           <h1 className="title text-balance text-4xl sm:text-5xl">
-            Hi I'm Robert. 
+            Hi I&apos;m Robert. 
           </h1>
 
           <p className="mt-2 whitespace-nowrap text-sm font-medium sm:text-base">
