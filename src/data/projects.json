@@ -1,76 +1,17 @@
 {
   "projects": [
     {
-      "name": "TT4D",
-      "description": "Generate winning combinations, view past results, and analyze lottery trends all in one place",
-      "image": "/tt4d.png",
+      "name": "Java Neural Net",
+      "description": "Neural Network built from scratch in Java to recognize handwritten digits from the MNIST dataset.",
+      "image": "/Neuralnet.png",
       "tags": [
-        "Python",
-        "FastAPI",
-        "Docker",
-        "Fly.io",
-        "NextJS",
-        "PostgreSQL",
-        "TailwindCSS",
-        "BS4"
+        "Java"
       ],
       "links": [
         {
-          "name": "Website",
-          "href": "https://huatnumbers.com",
-          "icon": "globe"
-        },
-        {
-          "name": "Source",
-          "href": "https://github.com/tedawf/tt4d",
+          "name": "GitHub",
+          "href": "https://github.com/RobfPeterson/Java-Neural-Net-MNIST-Dataset",
           "icon": "github"
-        },
-        {
-          "name": "Source (UI)",
-          "href": "https://github.com/tedawf/tt4d-web",
-          "icon": "github"
-        }
-      ]
-    },
-    {
-      "name": "Tradingview Telegram Alerts",
-      "description": "Real-time trading alerts with chart snapshots sent to Telegram, designed to keep traders informed and responsive to market changes",
-      "image": "/tv-tele-alerts.png",
-      "tags": [
-        "Python",
-        "FastAPI",
-        "Docker",
-        "Fly.io",
-        "Selenium",
-        "Telegram Bot API"
-      ],
-      "links": [
-        {
-          "name": "Source",
-          "href": "https://github.com/tedawf/tradingview-telegram-alerts",
-          "icon": "github"
-        }
-      ]
-    },
-    {
-      "name": "NFTVue",
-      "description": "Non-Fungible Tokens (NFTs) Gallery Viewer website that allows users to connect their crypto wallets to view and verify their tokens",
-      "href": "https://nftvue.vercel.app",
-      "image": "/nftvue.png",
-      "tags": [
-        "NextJS",
-        "TailwindCSS",
-        "MetaMask",
-        "WalletConnect",
-        "Web3",
-        "NFTScan",
-        "HashKey DID"
-      ],
-      "links": [
-        {
-          "name": "Website",
-          "href": "https://nftvue.vercel.app",
-          "icon": "globe"
         }
       ]
     }
