@@ -10,6 +10,7 @@
 - Resend (email)
 
 ## Costs
+Currently switching API to google, likely upgrading to paid tokens for reduced delays. 
 
 ## License
 
