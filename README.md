@@ -10,7 +10,7 @@
 - Resend (email)
 
 ## Costs
-Currently switching API to google, likely upgrading to paid tokens for reduced delays. 
+Currently switching API to google, likely upgrading to paid tokens for reduced delays. Therefore, Chatbot is currently not functional
 
 ## License
 
