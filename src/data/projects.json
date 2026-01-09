@@ -15,5 +15,21 @@
         }
       ]
     }
+    {
+      "name": "Civilization Modeling",
+      "description": "Python code implementing the formulas proposed by Peter Turchin to understand civilization growth and collapse",
+      "image": "/selfish_elite_model_dynamics.png",
+      "tags": [
+        "Python",
+        "Data Modeling"
+      ],
+      "links": [
+        {
+          "name": "GitHub",
+          "href": "https://github.com/RobfPeterson/Modeling-Peter-Turchin-Cliodynamics",
+          "icon": "github"
+        }
+      ]
+    }
   ]
 }
