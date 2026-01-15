@@ -104,12 +104,12 @@ export async function POST(req: Request) {
     // 3. pairs the documents to createStuffDocumentsChain and put into {context}
     // 4. send the updated prompt to chatgpt for a customised response
 
-    await const retrievalChain = await createRetrievalChain({
+    const retrievalChain = await createRetrievalChain({
       combineDocsChain,
       retriever: historyAwareRetrievalChain, // get the relevant documents based on chat history
     });
 
-    retrievalChain.invoke({
+    await retrievalChain.invoke({
       input: latestMessage,
       chat_history: chatHistory,
     });
