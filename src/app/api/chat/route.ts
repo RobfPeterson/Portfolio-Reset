@@ -109,10 +109,14 @@ export async function POST(req: Request) {
       retriever: historyAwareRetrievalChain, // get the relevant documents based on chat history
     });
 
-    await retrievalChain.invoke({
+    retrievalChain.invoke({
       input: latestMessage,
       chat_history: chatHistory,
+    }).catch((error) => {
+      console.error("Retrieval chain error:", error);
+      handlers.handleLLMError?.(error);
     });
+    
 
     return new StreamingTextResponse(stream);
   } catch (error) {
