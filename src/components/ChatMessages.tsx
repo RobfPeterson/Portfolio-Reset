@@ -20,7 +20,7 @@ export default function ChatMessages({
           <Bot className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
           <h3 className="mb-2 font-semibold">Chat Temporarily Unavailable</h3>
           <p className="text-sm text-muted-foreground">
-            The chatbot is currently switching API providers. Please check back soon!
+            I am currently switching API providers. Please check back soon!
           </p>
         </div>
       </div>
