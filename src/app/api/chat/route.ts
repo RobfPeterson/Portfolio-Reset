@@ -19,104 +19,119 @@ export async function POST(req: Request) {
     const body = await req.json();
     const messages = body.messages;
 
+    if (!messages || messages.length === 0) {
+      return Response.json({ error: "No messages provided" }, { status: 400 });
+    }
+
     const latestMessage = messages[messages.length - 1].content;
 
-    const { stream, handlers } = LangChainStream();
+    // Create encoder and stream for manual streaming
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          const cache = new UpstashRedisCache({
+            client: Redis.fromEnv(),
+          });
 
-    // store the same user questions
-    const cache = new UpstashRedisCache({
-      client: Redis.fromEnv(),
+          const chatModel = new ChatGoogleGenerativeAI({
+            model: "gemini-2.0-flash-exp",
+            streaming: true,
+            cache,
+            temperature: 0,
+            maxOutputTokens: 2048,
+            topP: 0.95,
+          });
+
+          const rephraseModel = new ChatGoogleGenerativeAI({
+            model: "gemini-2.0-flash-exp",
+            cache,
+            temperature: 0.3,
+            maxOutputTokens: 512,
+            topP: 0.9,
+          });
+
+          const retriever = (await getVectorStore()).asRetriever();
+
+          const chatHistory = messages
+            .slice(0, -1)
+            .map((msg: Message) =>
+              msg.role === "user"
+                ? new HumanMessage(msg.content)
+                : new AIMessage(msg.content),
+            );
+
+          const rephrasePrompt = ChatPromptTemplate.fromMessages([
+            new MessagesPlaceholder("chat_history"),
+            ["user", "{input}"],
+            [
+              "user",
+              "Given the above conversation history, generate a search query to look up information relevant to the current question. " +
+                "Do not leave out any relevant keywords. " +
+                "Only return the query and no other text.",
+            ],
+          ]);
+
+          const historyAwareRetrievalChain = await createHistoryAwareRetriever({
+            llm: rephraseModel,
+            retriever,
+            rephrasePrompt,
+          });
+
+          const prompt = ChatPromptTemplate.fromMessages([
+            [
+              "system",
+              "You are Rob bot, a friendly chatbot for Robert's personal developer portfolio website. " +
+                "You are trying to convince potential employers to hire Robert as a data analyst or intern. " +
+                "Be concise and only answer the user's questions based on the provided context below. " +
+                "Provide links to pages that contains relevant information about the topic from the given context. " +
+                "Format your messages in markdown.\n\n" +
+                "Context:\n{context}",
+            ],
+            new MessagesPlaceholder("chat_history"),
+            ["user", "{input}"],
+          ]);
+
+          // Get relevant documents
+          const relevantDocs = await historyAwareRetrievalChain.invoke({
+            input: latestMessage,
+            chat_history: chatHistory,
+          });
+
+          // Format context from documents
+          const context = relevantDocs
+            .map((doc) => `Page content:\n${doc.pageContent}`)
+            .join("\n------\n");
+
+          // Stream the response
+          const formattedPrompt = await prompt.format({
+            context,
+            chat_history: chatHistory,
+            input: latestMessage,
+          });
+
+          const response = await chatModel.stream(formattedPrompt);
+
+          for await (const chunk of response) {
+            const text = chunk.content;
+            controller.enqueue(encoder.encode(text));
+          }
+
+          controller.close();
+        } catch (error) {
+          console.error("Stream error:", error);
+          controller.error(error);
+        }
+      },
     });
-    const chatModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.5-flash",
-      streaming: true,
-      callbacks: [handlers],
-      verbose: false, // Remove console logs in production
-      cache,
-      temperature: 0,
-      maxOutputTokens: 2048, // Set reasonable limit to prevent excessive responses
-      topP: 0.95, // Add for more consistent outputs with temp=0
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+      },
     });
-
-    const rephraseModel = new ChatGoogleGenerativeAI({
-      model: "gemini-2.5-flash",
-      verbose: false, // Remove console logs in production
-      cache,
-      temperature: 0.3, // Slight creativity for rephrasing while staying focused
-      maxOutputTokens: 512, // Rephrasing typically needs fewer tokens
-      topP: 0.9,
-    });
-
-    const retriever = (await getVectorStore()).asRetriever();
-
-    // get a customised prompt based on chat history
-    const chatHistory = messages
-      .slice(0, -1) // ignore latest message
-      .map((msg: Message) =>
-        msg.role === "user"
-          ? new HumanMessage(msg.content)
-          : new AIMessage(msg.content),
-      );
-
-    const rephrasePrompt = ChatPromptTemplate.fromMessages([
-      new MessagesPlaceholder("chat_history"),
-      ["user", "{input}"],
-      [
-        "user",
-        "Given the above conversation history, generate a search query to look up information relevant to the current question. " +
-          "Do not leave out any relevant keywords. " +
-          "Only return the query and no other text. ",
-      ],
-    ]);
-
-    const historyAwareRetrievalChain = await createHistoryAwareRetriever({
-      llm: rephraseModel,
-      retriever,
-      rephrasePrompt,
-    });
-
-    // final prompt
-    const prompt = ChatPromptTemplate.fromMessages([
-      [
-        "system",
-        "You are Rob bot, a friendly chatbot for Robert's personal developer portfolio website. " +
-          "You are trying to convince potential employers to hire Robert as a data analyst or intern. " +
-          "Be concise and only answer the user's questions based on the provided context below. " +
-          "Provide links to pages that contains relevant information about the topic from the given context. " +
-          "Format your messages in markdown.\n\n" +
-          "Context:\n{context}",
-      ],
-      new MessagesPlaceholder("chat_history"),
-      ["user", "{input}"],
-    ]);
-
-    const combineDocsChain = await createStuffDocumentsChain({
-      llm: chatModel,
-      prompt,
-      documentPrompt: PromptTemplate.fromTemplate(
-        "Page content:\n{page_content}",
-      ),
-      documentSeparator: "\n------\n",
-    });
-
-    // 1. retrievalChain converts the {input} into a vector
-    // 2. do a similarity search in the vector store and finds relevant documents
-    // 3. pairs the documents to createStuffDocumentsChain and put into {context}
-    // 4. send the updated prompt to chatgpt for a customised response
-
-    const retrievalChain = await createRetrievalChain({
-      combineDocsChain,
-      retriever: historyAwareRetrievalChain, // get the relevant documents based on chat history
-    });
-
-    retrievalChain.stream({
-      input: latestMessage,
-      chat_history: chatHistory,
-    });
-  
-    return new StreamingTextResponse(stream);
   } catch (error) {
-    console.error(error);
+    console.error("Error in chat route:", error);
     return Response.json({ error: "Internal server error" }, { status: 500 });
   }
 }
