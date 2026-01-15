@@ -109,7 +109,7 @@ export async function POST(req: Request) {
       retriever: historyAwareRetrievalChain, // get the relevant documents based on chat history
     });
 
-    await retrievalChain.stream({
+    retrievalChain.stream({
       input: latestMessage,
       chat_history: chatHistory,
     });
