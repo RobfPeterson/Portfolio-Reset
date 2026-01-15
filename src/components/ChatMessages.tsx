@@ -14,6 +14,19 @@ export default function ChatMessages({
   error,
   isLoading,
 }: ChatMessagesProps) {
+  return (
+      <div className="flex h-full items-center justify-center p-4">
+        <div className="text-center">
+          <Bot className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
+          <h3 className="mb-2 font-semibold">Chat Temporarily Unavailable</h3>
+          <p className="text-sm text-muted-foreground">
+            The chatbot is currently switching API providers. Please check back soon!
+          </p>
+        </div>
+      </div>
+    );
+}
+/*
   const isLastMessageUser = messages[messages.length - 1]?.role === "user";
 
   // Scroll to new messages automatically
@@ -35,6 +48,7 @@ export default function ChatMessages({
       </ul>
 
       {/* empty */}
+/*
       {!error && messages.length === 0 && (
         <div className="mt-16 flex h-full flex-col items-center justify-center gap-2">
           <Bot />
@@ -47,6 +61,7 @@ export default function ChatMessages({
       )}
 
       {/* loading */}
+/*
       {isLoading && isLastMessageUser && (
         <div className="flex items-center justify-center">
           <Loader2 className="mr-1.5 size-3 animate-spin text-muted-foreground" />
@@ -57,6 +72,7 @@ export default function ChatMessages({
       )}
 
       {/* error */}
+/*
       {error && (
         <p className="text-center text-xs text-rose-500">
           Something went wrong. Please try again!
