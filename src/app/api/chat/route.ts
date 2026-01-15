@@ -112,12 +112,8 @@ export async function POST(req: Request) {
     retrievalChain.invoke({
       input: latestMessage,
       chat_history: chatHistory,
-    }).catch((error) => {
-      console.error("Retrieval chain error:", error);
-      handlers.handleLLMError?.(error);
     });
-    
-
+  
     return new StreamingTextResponse(stream);
   } catch (error) {
     console.error(error);
