@@ -1,5 +1,5 @@
 import { useChatbot } from "@/contexts/ChatContext";
-import { useChat } from 'ai';
+import { useChat } from 'ai/react';
 import ChatHeader from "./ChatHeader";
 import ChatInput from "./ChatInput";
 import ChatMessages from "./ChatMessages";
