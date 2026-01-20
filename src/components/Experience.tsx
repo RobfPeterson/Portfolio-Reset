@@ -1,13 +1,14 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import careerData from "@/data/career.json";
 import educationData from "@/data/education.json";
-import { careerSchema, educationSchema } from "@/lib/schemas";
+import activityData from "@/data/activites.json";
+import { careerSchema, educationSchema ,activitySchema} from "@/lib/schemas";
 import Timeline from "./Timeline";
 
 export default function Experience() {
   const career = careerSchema.parse(careerData).career;
   const education = educationSchema.parse(educationData).education;
-
+  const education = activitySchema.parse(activitiesData).activity;
   return (
     <Tabs defaultValue="work">
       <TabsList className="mb-2 grid w-full grid-cols-3">
