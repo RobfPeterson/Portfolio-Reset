@@ -17,6 +17,9 @@ importers:
       '@google/genai':
         specifier: ^1.34.0
         version: 1.37.0
+      '@google/generative-ai':
+        specifier: ^1.34.0
+        version: 1.34.0
       '@hookform/resolvers':
         specifier: ^3.9.0
         version: 3.10.0(react-hook-form@7.71.1(react@18.3.1))
