@@ -11,6 +11,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "@datastax/astra-db-ts": "^1.4.1",
     "@hookform/resolvers": "^3.9.0",
     "@langchain/community": "^0.3.1",
