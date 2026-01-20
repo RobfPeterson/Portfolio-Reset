@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import careerData from "@/data/career.json";
 import educationData from "@/data/education.json";
-import activityData from "@/data/activites.json";
+import activityData from "@/data/activities.json";
 import { careerSchema, educationSchema ,activitySchema} from "@/lib/schemas";
 import Timeline from "./Timeline";
 
