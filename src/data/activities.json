@@ -1,1 +1,16 @@
-
+{
+  "career": [
+    {
+      "name": "Nozomi Networks",
+      "href": "https://www.nozominetworks.com",
+      "title": "Intern - Data Analyst",
+      "logo": "/Nozomi.png",
+      "start": "June 2025",
+      "end": "Sep 2025",
+      "description": [
+        "Managed a weekly report for Customer Success team on key metrics using Salesforce and Excel tracking 1000+ accounts, where analyzed data was used to inform C-suite level decisions for customer retention",
+        "Worked with company’s Salesforce admin to systemize an automated reporting solution, and designed a Salesforce dashboard to replace the existing weekly report to understand cyber security customer engagement trends"
+      ]
+    }
+  ]
+}
