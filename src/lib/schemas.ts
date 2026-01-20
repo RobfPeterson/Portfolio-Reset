@@ -45,4 +45,5 @@ export type Experience = z.infer<typeof experience>;
 
 export const careerSchema = z.object({ career: z.array(experience) });
 export const educationSchema = z.object({ education: z.array(experience) });
+export const activitySchema = z.object({ education: z.array(experience) });
 export const socialSchema = z.object({ socials: z.array(iconLink) });
