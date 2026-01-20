@@ -4,6 +4,7 @@ import Providers from "@/components/Providers";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Calistoga, Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const inter = Inter({
@@ -43,6 +44,7 @@ export default function RootLayout({
           </div>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
