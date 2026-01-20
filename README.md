@@ -1,4 +1,4 @@
-##TODO
+## TODO
  - Add Gemini Credits, current free model too slow
  - Acquire Domain Name and hosting
 
