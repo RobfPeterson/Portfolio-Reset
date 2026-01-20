@@ -8,7 +8,7 @@ import Timeline from "./Timeline";
 export default function Experience() {
   const career = careerSchema.parse(careerData).career;
   const education = educationSchema.parse(educationData).education;
-  const activities = activitySchema.parse(activityData).activity;
+  const activities = activitySchema.parse(activityData).activities;
   return (
     <Tabs defaultValue="work">
       <TabsList className="mb-2 grid w-full grid-cols-3">
