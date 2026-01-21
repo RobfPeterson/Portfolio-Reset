@@ -47,6 +47,3 @@ export const careerSchema = z.object({ career: z.array(experience) });
 export const educationSchema = z.object({ education: z.array(experience) });
 export const activitiesSchema = z.object({ activities: z.array(experience) });
 export const socialSchema = z.object({ socials: z.array(iconLink) });
-console.log('Career items:', career.length);
-console.log('Education items:', education.length);
-console.log('Activities items:', activities.length);
