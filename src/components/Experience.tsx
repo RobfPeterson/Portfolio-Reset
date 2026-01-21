@@ -9,6 +9,9 @@ export default function Experience() {
   const career = careerSchema.parse(careerData).career;
   const education = educationSchema.parse(educationData).education;
   const activities = activitiesSchema.parse(activitiesData).activities;
+  console.log('Career items:', career.length);
+  console.log('Education items:', education.length);
+  console.log('Activities items:', activities.length);
   return (
     <Tabs defaultValue="work">
       <TabsList className="mb-2 grid w-full grid-cols-3">
