@@ -23,7 +23,7 @@ export default function Experience() {
         <Timeline experience={education}></Timeline>
       </TabsContent>
        <TabsContent value="activities">
-        <Timeline experience={activitives}></Timeline>
+        <Timeline experience={activities}></Timeline>
       </TabsContent>
     </Tabs>
   );
