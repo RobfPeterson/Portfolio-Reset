@@ -12,7 +12,7 @@ if (!endpoint || !token || !collection) {
 
 export async function getVectorStore() {
   return AstraDBVectorStore.fromExistingIndex(
-    new GoogleGenerativeAIEmbeddings({ model: "gemini-embedding-001" }),
+    new GoogleGenerativeAIEmbeddings({ model: "gemini-embedding-001", outputDimensionality: 1536 }),
     {
       token,
       endpoint,
@@ -36,7 +36,4 @@ export async function clearCollection() {
   const db = client.db(endpoint);
 
   await db.dropCollection(collection);
-  await db.createCollection(collection, {
-    vector: { dimension: 1536, metric: "cosine" },
-  });
 }
