@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const lastUpdated = "Sep 2024";
+const lastUpdated = "Feb 2026";
 
 export default function page() {
   return (
@@ -42,7 +42,7 @@ export default function page() {
           <li>Improve the website based on feedback you might share</li>
           <li>Respond to your questions or feedback</li>
         </ul>
-        <h2 className="title">Sharing Your Info (Spoiler: I Don&apos;t)</h2>
+        <h2 className="title">Sharing Your Info (I Don&apos;t)</h2>
         <p>
           I don&apos;t sell, trade, or rent your personal info. If you shared
           something sensitive by accident, feel free to reach out, and I&apos;ll
