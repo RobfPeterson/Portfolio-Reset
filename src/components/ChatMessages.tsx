@@ -14,15 +14,36 @@ export default function ChatMessages({
   error,
   isLoading,
 }: ChatMessagesProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-      <div className="flex h-full items-center justify-center p-4">
-        <div className="text-center">
-          <Bot className="mx-auto mb-4 h-12 w-12 text-muted-foreground" />
-          <h3 className="mb-2 font-semibold">Chat Temporarily Unavailable</h3>
+    <div className="flex-1 overflow-y-auto p-4" ref={scrollRef}>
+      {messages.map((message) => (
+        <ChatMessage key={message.id} message={message} />
+      ))}
+      {isLoading && messages[messages.length - 1]?.role === "user" && (
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <Bot className="shrink-0" />
+          <Loader2 className="animate-spin" />
+        </div>
+      )}
+      {error && (
+        <p className="text-center text-sm text-destructive">{error.message}</p>
+      )}
+      {!error && messages.length === 0 && !isLoading && (
+        <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
+          <Bot className="h-8 w-8 text-muted-foreground" />
           <p className="text-sm text-muted-foreground">
-            I am currently switching API providers. Please check back soon!
+            Ask me anything about Robert!
           </p>
         </div>
-      </div>
-    );
+      )}
+    </div>
+  );
 }
