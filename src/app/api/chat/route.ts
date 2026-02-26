@@ -6,7 +6,6 @@ import {
   MessagesPlaceholder,
   PromptTemplate,
 } from "@langchain/core/prompts";
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { Redis } from "@upstash/redis";
 import { LangChainStream, Message, StreamingTextResponse } from "ai";
@@ -109,7 +108,7 @@ export async function POST(req: Request) {
       retriever: historyAwareRetrievalChain, // get the relevant documents based on chat history
     });
 
-    retrievalChain.stream({
+    retrievalChain.invoke({
       input: latestMessage,
       chat_history: chatHistory,
     });
