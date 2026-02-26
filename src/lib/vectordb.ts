@@ -30,3 +30,13 @@ export async function getEmbeddingsCollection() {
 
   return db.collection(collection);
 }
+
+export async function clearCollection() {
+  const client = new DataAPIClient(token);
+  const db = client.db(endpoint);
+
+  await db.dropCollection(collection);
+  await db.createCollection(collection, {
+    vector: { dimension: 1536, metric: "cosine" },
+  });
+}
