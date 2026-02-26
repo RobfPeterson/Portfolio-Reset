@@ -6,14 +6,14 @@ import { Redis } from "@upstash/redis";
 import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { getEmbeddingsCollection, getVectorStore } from "../src/lib/vectordb";
+import { clearCollection, getVectorStore } from "../src/lib/vectordb";
 
 async function generateEmbeddings() {
-  const vectorStore = await getVectorStore();
-
   // clear existing data
-  (await getEmbeddingsCollection()).deleteMany({});
-  (await Redis.fromEnv()).flushdb();
+  await clearCollection();
+  await (await Redis.fromEnv()).flushdb();
+
+  const vectorStore = await getVectorStore();
 
   const routeLoader = new DirectoryLoader(
     "src/app",

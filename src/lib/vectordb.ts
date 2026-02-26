@@ -18,7 +18,7 @@ export async function getVectorStore() {
       endpoint,
       collection,
       collectionOptions: {
-        vector: { dimension: 1536, metric: "cosine" },
+        vector: { dimension: 3072, metric: "cosine" },
       },
     },
   );
@@ -29,4 +29,11 @@ export async function getEmbeddingsCollection() {
   const db = client.db(endpoint);
 
   return db.collection(collection);
+}
+
+export async function clearCollection() {
+  const client = new DataAPIClient(token);
+  const db = client.db(endpoint);
+
+  await db.dropCollection(collection);
 }
